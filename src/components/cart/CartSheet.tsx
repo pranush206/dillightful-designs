@@ -261,7 +261,7 @@ Please confirm this order. Thank you! 🙏`
 
             <Button type="submit" size="lg" className="w-full">
               <Send className="mr-2 h-4 w-4" />
-              Send Order via WhatsApp
+              Book Order Now
             </Button>
           </form>
         </DialogContent>
