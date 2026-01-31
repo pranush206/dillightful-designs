@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/store/cart";
 import { Separator } from "@/components/ui/separator";
+import { buildWhatsAppSendUrl } from "@/lib/whatsapp";
 
 const WHATSAPP_NUMBER = "919059582419";
 
@@ -57,12 +58,16 @@ ${itemsList}
 
 Please confirm this order. Thank you! 🙏`;
 
-    // Encode message for WhatsApp URL
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    const whatsappUrl = buildWhatsAppSendUrl({
+      phoneE164Digits: WHATSAPP_NUMBER,
+      message,
+    });
 
-    // Open WhatsApp
-    window.open(whatsappUrl, "_blank");
+    // Try opening a new tab/window first (best UX), then fall back to same-tab navigation if blocked.
+    const opened = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    if (!opened) {
+      window.location.href = whatsappUrl;
+    }
 
     // Reset form and clear cart
     setFormData({ name: "", phone: "", address: "" });
