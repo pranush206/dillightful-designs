@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { useCart } from "@/store/cart";
 import { Separator } from "@/components/ui/separator";
 import { buildWhatsAppSendUrl } from "@/lib/whatsapp";
+import { toast } from "@/components/ui/use-toast";
 
 const WHATSAPP_NUMBER = "919059582419";
 
@@ -28,6 +29,26 @@ export function CartSheet() {
     address: "",
   });
 
+  const itemsListForMessage = items
+    .map((item) => `• ${item.pickle.name} (${item.pickle.weight}) × ${item.quantity} = ₹${item.pickle.price * item.quantity}`)
+    .join("\n");
+
+  const orderMessage = items.length
+    ? `🛒 *New Order from Maa's Pickles*
+
+*Customer Details:*
+Name: ${formData.name}
+Phone: ${formData.phone}
+Address: ${formData.address}
+
+*Order Items:*
+${itemsListForMessage}
+
+*Total Amount: ₹${totalPrice}*
+
+Please confirm this order. Thank you! 🙏`
+    : "";
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -38,36 +59,32 @@ export function CartSheet() {
 
   const handleSendWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Build order details message
-    const itemsList = items
-      .map((item) => `• ${item.pickle.name} (${item.pickle.weight}) × ${item.quantity} = ₹${item.pickle.price * item.quantity}`)
-      .join("\n");
 
-    const message = `🛒 *New Order from Maa's Pickles*
-
-*Customer Details:*
-Name: ${formData.name}
-Phone: ${formData.phone}
-Address: ${formData.address}
-
-*Order Items:*
-${itemsList}
-
-*Total Amount: ₹${totalPrice}*
-
-Please confirm this order. Thank you! 🙏`;
+    // Many networks/browsers block WhatsApp domains (ERR_BLOCKED_BY_RESPONSE).
+    // So we ALWAYS copy the message to clipboard as a reliable fallback.
+    (async () => {
+      try {
+        await navigator.clipboard.writeText(orderMessage);
+        toast({
+          title: "Order message copied",
+          description: "If WhatsApp is blocked, open WhatsApp and paste the message to send it.",
+        });
+      } catch {
+        toast({
+          title: "Copy failed",
+          description: "Please manually select and copy the message shown in the dialog.",
+          variant: "destructive",
+        });
+      }
+    })();
 
     const whatsappUrl = buildWhatsAppSendUrl({
       phoneE164Digits: WHATSAPP_NUMBER,
-      message,
+      message: orderMessage,
     });
 
-    // Try opening a new tab/window first (best UX), then fall back to same-tab navigation if blocked.
-    const opened = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    if (!opened) {
-      window.location.href = whatsappUrl;
-    }
+    // Try opening WhatsApp; if blocked, user can still paste the copied message.
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
     // Reset form and clear cart
     setFormData({ name: "", phone: "", address: "" });
@@ -226,6 +243,20 @@ Please confirm this order. Thank you! 🙏`;
                 <span>Total</span>
                 <span className="text-primary">₹{totalPrice}</span>
               </div>
+            </div>
+
+            {/* Fallback: copy/paste message */}
+            <div className="space-y-2">
+              <Label htmlFor="whatsappMessage">Message to send (auto-copied)</Label>
+              <Textarea
+                id="whatsappMessage"
+                value={orderMessage}
+                readOnly
+                rows={6}
+              />
+              <p className="text-xs text-muted-foreground">
+                If WhatsApp opens as “blocked”, just open WhatsApp and paste this message to +91 {WHATSAPP_NUMBER}.
+              </p>
             </div>
 
             <Button type="submit" size="lg" className="w-full">
