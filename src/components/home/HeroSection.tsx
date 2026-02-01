@@ -40,7 +40,7 @@ export function HeroSection() {
             </Button>
             <Button asChild size="xl" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-foreground">
               <Link to="/contact">
-                Order Now
+                Bulk Order
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
