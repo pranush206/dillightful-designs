@@ -186,16 +186,16 @@ Please confirm this order. Thank you! 🙏`
 
       {/* Address Form Dialog */}
       <Dialog open={showAddressForm} onOpenChange={setShowAddressForm}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-display">Delivery Details</DialogTitle>
-            <DialogDescription>
-              Enter your details to complete the order via WhatsApp.
+        <DialogContent className="sm:max-w-sm max-h-[85vh] flex flex-col p-4">
+          <DialogHeader className="pb-2">
+            <DialogTitle className="font-display text-base">Delivery Details</DialogTitle>
+            <DialogDescription className="text-xs">
+              Enter your details to order via WhatsApp.
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleSendWhatsApp} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name *</Label>
+          <form onSubmit={handleSendWhatsApp} className="flex flex-col gap-3 overflow-y-auto flex-1">
+            <div className="space-y-1">
+              <Label htmlFor="name" className="text-xs">Full Name *</Label>
               <Input
                 id="name"
                 name="name"
@@ -203,10 +203,11 @@ Please confirm this order. Thank you! 🙏`
                 value={formData.name}
                 onChange={handleChange}
                 required
+                className="h-8 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number *</Label>
+            <div className="space-y-1">
+              <Label htmlFor="phone" className="text-xs">Phone Number *</Label>
               <Input
                 id="phone"
                 name="phone"
@@ -215,10 +216,11 @@ Please confirm this order. Thank you! 🙏`
                 value={formData.phone}
                 onChange={handleChange}
                 required
+                className="h-8 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="address">Delivery Address *</Label>
+            <div className="space-y-1">
+              <Label htmlFor="address" className="text-xs">Delivery Address *</Label>
               <Textarea
                 id="address"
                 name="address"
@@ -226,41 +228,21 @@ Please confirm this order. Thank you! 🙏`
                 value={formData.address}
                 onChange={handleChange}
                 required
-                rows={3}
+                rows={2}
+                className="text-sm min-h-[60px]"
               />
             </div>
 
-            {/* Order Summary */}
-            <div className="p-3 bg-muted/50 rounded-lg space-y-2 text-sm">
-              <h4 className="font-semibold">Order Summary</h4>
-              {items.map((item) => (
-                <div key={item.pickle.id} className="flex justify-between">
-                  <span>{item.pickle.name} × {item.quantity}</span>
-                  <span>₹{item.pickle.price * item.quantity}</span>
-                </div>
-              ))}
-              <div className="border-t pt-2 flex justify-between font-semibold">
-                <span>Total</span>
+            {/* Compact Order Summary */}
+            <div className="p-2 bg-muted/50 rounded-md text-xs space-y-1">
+              <div className="flex justify-between font-semibold">
+                <span>Total ({items.length} items)</span>
                 <span className="text-primary">₹{totalPrice}</span>
               </div>
             </div>
 
-            {/* Fallback: copy/paste message */}
-            <div className="space-y-2">
-              <Label htmlFor="whatsappMessage">Message to send (auto-copied)</Label>
-              <Textarea
-                id="whatsappMessage"
-                value={orderMessage}
-                readOnly
-                rows={6}
-              />
-              <p className="text-xs text-muted-foreground">
-                If WhatsApp opens as “blocked”, just open WhatsApp and paste this message to +91 {WHATSAPP_NUMBER}.
-              </p>
-            </div>
-
-            <Button type="submit" size="lg" className="w-full">
-              <Send className="mr-2 h-4 w-4" />
+            <Button type="submit" size="sm" className="w-full mt-auto">
+              <Send className="mr-2 h-3 w-3" />
               Book Order Now
             </Button>
           </form>
