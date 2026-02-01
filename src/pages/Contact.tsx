@@ -242,19 +242,6 @@ const Contact = () => {
                 </div>
               </CardContent>
             </Card>
-
-            <Card variant="elevated" className="bg-primary text-primary-foreground">
-              <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Bulk Orders</h3>
-                <p className="text-primary-foreground/80 text-sm mb-4">
-                  Planning a celebration or need pickles for your restaurant? 
-                  Contact us for special bulk pricing!
-                </p>
-                <Button variant="accent" size="sm">
-                  Inquire Now
-                </Button>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
