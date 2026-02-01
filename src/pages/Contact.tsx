@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { useCart } from "@/store/cart";
 import { useToast } from "@/hooks/use-toast";
+import { buildWhatsAppSendUrl } from "@/lib/whatsapp";
 
 const Contact = () => {
   const location = useLocation();
@@ -29,14 +30,41 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    setIsSubmitted(true);
-    if (fromCart && items.length > 0) {
-      clearCart();
+    
+    // Build WhatsApp message
+    let message = `📬 *New Contact Message*\n\n`;
+    message += `👤 *Name:* ${formData.name}\n`;
+    message += `📞 *Phone:* ${formData.phone}\n`;
+    if (formData.email) {
+      message += `📧 *Email:* ${formData.email}\n`;
     }
+    
+    if (fromCart && items.length > 0) {
+      message += `\n🏠 *Delivery Address:*\n${formData.address}\n`;
+      message += `\n🛒 *Order Details:*\n`;
+      items.forEach((item) => {
+        message += `• ${item.pickle.name} × ${item.quantity} = ₹${item.pickle.price * item.quantity}\n`;
+      });
+      message += `\n💰 *Total: ₹${getTotalPrice()}*\n`;
+      if (formData.message) {
+        message += `\n📝 *Special Instructions:*\n${formData.message}`;
+      }
+      clearCart();
+    } else {
+      message += `\n💬 *Message:*\n${formData.message}`;
+    }
+    
+    // Open WhatsApp with the message
+    const whatsappUrl = buildWhatsAppSendUrl({
+      phoneE164Digits: "+919059582419",
+      message: message,
+    });
+    window.open(whatsappUrl, "_blank");
+    
+    setIsSubmitted(true);
     toast({
-      title: "Order Received! 🎉",
-      description: "We'll contact you shortly to confirm your order.",
+      title: fromCart ? "Order Sent! 🎉" : "Message Sent! 🎉",
+      description: "Your message has been sent via WhatsApp.",
     });
   };
 
