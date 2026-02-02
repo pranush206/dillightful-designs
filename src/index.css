@@ -6,109 +6,109 @@
 
 @layer base {
   :root {
-    /* Warm, earthy pickle-inspired palette */
-    --background: 35 30% 97%;
-    --foreground: 25 30% 15%;
+    /* Rich, earthy Indian pickle-inspired palette */
+    --background: 38 35% 96%;
+    --foreground: 20 40% 12%;
 
-    --card: 35 25% 95%;
-    --card-foreground: 25 30% 15%;
+    --card: 38 30% 94%;
+    --card-foreground: 20 40% 12%;
 
-    --popover: 35 25% 98%;
-    --popover-foreground: 25 30% 15%;
+    --popover: 38 30% 97%;
+    --popover-foreground: 20 40% 12%;
 
-    /* Terracotta Red - like chili and spices */
-    --primary: 12 70% 45%;
-    --primary-foreground: 35 30% 98%;
+    /* Deep Terracotta - rich clay pot vibes */
+    --primary: 16 65% 42%;
+    --primary-foreground: 38 35% 98%;
 
-    /* Warm Brown - like mustard seeds */
-    --secondary: 30 25% 88%;
-    --secondary-foreground: 25 35% 20%;
+    /* Warm Beige - aged paper feel */
+    --secondary: 32 28% 86%;
+    --secondary-foreground: 20 40% 18%;
 
-    /* Muted cream */
-    --muted: 35 20% 92%;
-    --muted-foreground: 25 15% 45%;
+    /* Muted sand */
+    --muted: 35 22% 90%;
+    --muted-foreground: 20 18% 42%;
 
-    /* Turmeric Gold accent */
-    --accent: 42 85% 55%;
-    --accent-foreground: 25 35% 15%;
+    /* Deep Mustard Gold - turmeric & mustard seeds */
+    --accent: 45 75% 48%;
+    --accent-foreground: 20 40% 12%;
 
-    /* Fresh Green */
-    --success: 145 50% 40%;
-    --success-foreground: 35 30% 98%;
+    /* Olive Green - fresh pickle */
+    --success: 82 40% 38%;
+    --success-foreground: 38 35% 98%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 35 30% 98%;
+    --destructive: 4 72% 52%;
+    --destructive-foreground: 38 35% 98%;
 
-    --border: 30 20% 85%;
-    --input: 30 20% 85%;
-    --ring: 12 70% 45%;
+    --border: 32 22% 82%;
+    --input: 32 22% 82%;
+    --ring: 16 65% 42%;
 
     --radius: 0.75rem;
 
-    /* Custom colors */
-    --pickle-green: 85 45% 35%;
-    --spice-orange: 25 80% 50%;
-    --mustard-yellow: 45 90% 50%;
-    --chili-red: 5 75% 50%;
-    --earth-brown: 25 30% 25%;
+    /* Custom pickle colors */
+    --pickle-green: 82 45% 32%;
+    --spice-orange: 28 78% 48%;
+    --mustard-yellow: 45 85% 52%;
+    --chili-red: 8 72% 48%;
+    --earth-brown: 20 35% 22%;
 
     /* Gradients */
-    --gradient-warm: linear-gradient(135deg, hsl(12 70% 45%) 0%, hsl(25 80% 50%) 100%);
-    --gradient-earth: linear-gradient(180deg, hsl(35 30% 97%) 0%, hsl(35 25% 92%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(25 30% 15% / 0.85) 0%, hsl(12 70% 25% / 0.75) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(16 65% 42%) 0%, hsl(28 78% 48%) 100%);
+    --gradient-earth: linear-gradient(180deg, hsl(38 35% 96%) 0%, hsl(35 28% 90%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(20 40% 12% / 0.88) 0%, hsl(16 50% 28% / 0.78) 100%);
 
     /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(25 30% 15% / 0.1);
-    --shadow-card: 0 8px 30px -8px hsl(25 30% 15% / 0.12);
-    --shadow-hover: 0 12px 40px -10px hsl(12 70% 45% / 0.2);
+    --shadow-soft: 0 4px 20px -4px hsl(20 35% 15% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(20 35% 15% / 0.12);
+    --shadow-hover: 0 12px 40px -10px hsl(16 65% 42% / 0.22);
 
-    --sidebar-background: 35 25% 95%;
-    --sidebar-foreground: 25 30% 15%;
-    --sidebar-primary: 12 70% 45%;
-    --sidebar-primary-foreground: 35 30% 98%;
-    --sidebar-accent: 35 20% 90%;
-    --sidebar-accent-foreground: 25 30% 15%;
-    --sidebar-border: 30 20% 85%;
-    --sidebar-ring: 12 70% 45%;
+    --sidebar-background: 38 30% 94%;
+    --sidebar-foreground: 20 40% 12%;
+    --sidebar-primary: 16 65% 42%;
+    --sidebar-primary-foreground: 38 35% 98%;
+    --sidebar-accent: 35 22% 88%;
+    --sidebar-accent-foreground: 20 40% 12%;
+    --sidebar-border: 32 22% 82%;
+    --sidebar-ring: 16 65% 42%;
   }
 
   .dark {
-    --background: 25 25% 10%;
-    --foreground: 35 25% 95%;
+    --background: 20 30% 8%;
+    --foreground: 38 28% 94%;
 
-    --card: 25 20% 14%;
-    --card-foreground: 35 25% 95%;
+    --card: 20 25% 12%;
+    --card-foreground: 38 28% 94%;
 
-    --popover: 25 20% 12%;
-    --popover-foreground: 35 25% 95%;
+    --popover: 20 25% 10%;
+    --popover-foreground: 38 28% 94%;
 
-    --primary: 12 65% 55%;
-    --primary-foreground: 25 30% 10%;
+    --primary: 16 60% 52%;
+    --primary-foreground: 20 30% 8%;
 
-    --secondary: 25 20% 20%;
-    --secondary-foreground: 35 25% 90%;
+    --secondary: 20 22% 18%;
+    --secondary-foreground: 38 25% 88%;
 
-    --muted: 25 15% 18%;
-    --muted-foreground: 35 15% 60%;
+    --muted: 20 18% 16%;
+    --muted-foreground: 35 18% 58%;
 
-    --accent: 42 80% 50%;
-    --accent-foreground: 25 30% 10%;
+    --accent: 45 70% 48%;
+    --accent-foreground: 20 30% 8%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 35 25% 95%;
+    --destructive: 4 65% 48%;
+    --destructive-foreground: 38 28% 94%;
 
-    --border: 25 15% 22%;
-    --input: 25 15% 22%;
-    --ring: 12 65% 55%;
+    --border: 20 18% 20%;
+    --input: 20 18% 20%;
+    --ring: 16 60% 52%;
 
-    --sidebar-background: 25 20% 12%;
-    --sidebar-foreground: 35 25% 95%;
-    --sidebar-primary: 12 65% 55%;
-    --sidebar-primary-foreground: 25 30% 10%;
-    --sidebar-accent: 25 15% 18%;
-    --sidebar-accent-foreground: 35 25% 95%;
-    --sidebar-border: 25 15% 22%;
-    --sidebar-ring: 12 65% 55%;
+    --sidebar-background: 20 25% 10%;
+    --sidebar-foreground: 38 28% 94%;
+    --sidebar-primary: 16 60% 52%;
+    --sidebar-primary-foreground: 20 30% 8%;
+    --sidebar-accent: 20 18% 16%;
+    --sidebar-accent-foreground: 38 28% 94%;
+    --sidebar-border: 20 18% 20%;
+    --sidebar-ring: 16 60% 52%;
   }
 }
 
