@@ -40,15 +40,15 @@ export function Footer() {
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <Phone className="h-4 w-4 text-accent" />
-                <span>+91 98765 43210</span>
+                <span>+91 9000872418</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <Mail className="h-4 w-4 text-accent" />
-                <span>orders@maaspickles.com</span>
+                <span>pranush206@gmail.com</span>
               </div>
               <div className="flex items-start gap-3 text-sm text-primary-foreground/80">
                 <MapPin className="h-4 w-4 text-accent mt-0.5" />
-                <span>123 Spice Lane, Hyderabad, India</span>
+                <span>445-26 Lela Mahal, Tirupati 517501, India</span>
               </div>
             </div>
           </div>
