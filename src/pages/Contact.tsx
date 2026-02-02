@@ -223,8 +223,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium">Phone</p>
-                    <p className="text-muted-foreground text-sm">+91 98765 43210</p>
-                    <p className="text-muted-foreground text-sm">+91 98765 43211</p>
+                    <p className="text-muted-foreground text-sm">+91 9000872418</p>
+                    <p className="text-muted-foreground text-sm">+91 9059582419</p>
                   </div>
                 </div>
 
@@ -234,8 +234,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-muted-foreground text-sm">orders@maaspickles.com</p>
-                    <p className="text-muted-foreground text-sm">support@maaspickles.com</p>
+                    <p className="text-muted-foreground text-sm">support206@gmail.com</p>
+                    <p className="text-muted-foreground text-sm">pranush206@gmail.com</p>
                   </div>
                 </div>
 
@@ -246,9 +246,9 @@ const Contact = () => {
                   <div>
                     <p className="font-medium">Address</p>
                     <p className="text-muted-foreground text-sm">
-                      123 Spice Lane, Banjara Hills
+                      445-26 Lela Mahal
                       <br />
-                      Hyderabad, Telangana 500034
+                      Tirupati 517501
                       <br />
                       India
                     </p>
