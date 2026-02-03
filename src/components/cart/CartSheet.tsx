@@ -34,7 +34,7 @@ export function CartSheet() {
     .join("\n");
 
   const orderMessage = items.length
-    ? `🛒 *New Order from Maa's Pickles*
+    ? `🛒 *New Order from 7 Hills Natu Ruchulu*
 
 *Customer Details:*
 Name: ${formData.name}
@@ -186,65 +186,92 @@ Please confirm this order. Thank you! 🙏`
 
       {/* Address Form Dialog */}
       <Dialog open={showAddressForm} onOpenChange={setShowAddressForm}>
-        <DialogContent className="sm:max-w-sm max-h-[85vh] flex flex-col p-4">
-          <DialogHeader className="pb-2">
-            <DialogTitle className="font-display text-base">Delivery Details</DialogTitle>
-            <DialogDescription className="text-xs">
-              Enter your details to order via WhatsApp.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleSendWhatsApp} className="flex flex-col gap-3 overflow-y-auto flex-1">
-            <div className="space-y-1">
-              <Label htmlFor="name" className="text-xs">Full Name *</Label>
-              <Input
-                id="name"
-                name="name"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="h-8 text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="phone" className="text-xs">Phone Number *</Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="+91 98765 43210"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                className="h-8 text-sm"
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="address" className="text-xs">Delivery Address *</Label>
-              <Textarea
-                id="address"
-                name="address"
-                placeholder="Enter your complete delivery address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-                rows={2}
-                className="text-sm min-h-[60px]"
-              />
-            </div>
-
-            {/* Compact Order Summary */}
-            <div className="p-2 bg-muted/50 rounded-md text-xs space-y-1">
-              <div className="flex justify-between font-semibold">
-                <span>Total ({items.length} items)</span>
-                <span className="text-primary">₹{totalPrice}</span>
+        <DialogContent className="sm:max-w-md max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden bg-gradient-to-b from-background to-muted/30">
+          {/* Header with gradient accent */}
+          <div className="bg-primary/5 border-b px-6 py-5">
+            <DialogHeader className="space-y-1">
+              <DialogTitle className="font-display text-xl text-foreground">
+                Delivery Details
+              </DialogTitle>
+              <DialogDescription className="text-sm text-muted-foreground">
+                Complete your order via WhatsApp
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+          
+          <form onSubmit={handleSendWhatsApp} className="flex flex-col flex-1 overflow-y-auto">
+            <div className="px-6 py-5 space-y-5">
+              {/* Full Name Field */}
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-sm font-medium flex items-center gap-1">
+                  Full Name <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder="Enter your full name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="h-11 bg-background border-muted-foreground/20 focus:border-primary focus:ring-primary/20 transition-all"
+                />
+              </div>
+              
+              {/* Phone Number Field */}
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="text-sm font-medium flex items-center gap-1">
+                  Phone Number <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  className="h-11 bg-background border-muted-foreground/20 focus:border-primary focus:ring-primary/20 transition-all"
+                />
+              </div>
+              
+              {/* Address Field */}
+              <div className="space-y-2">
+                <Label htmlFor="address" className="text-sm font-medium flex items-center gap-1">
+                  Delivery Address <span className="text-destructive">*</span>
+                </Label>
+                <Textarea
+                  id="address"
+                  name="address"
+                  placeholder="House/Flat No., Street, Landmark, City, PIN Code"
+                  value={formData.address}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+                  className="bg-background border-muted-foreground/20 focus:border-primary focus:ring-primary/20 transition-all resize-none"
+                />
               </div>
             </div>
 
-            <Button type="submit" size="sm" className="w-full mt-auto">
-              <Send className="mr-2 h-3 w-3" />
-              Book Order Now
-            </Button>
+            {/* Footer with Order Summary & Button */}
+            <div className="mt-auto border-t bg-muted/40 px-6 py-4 space-y-4">
+              {/* Order Summary */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">
+                  Total ({items.length} {items.length === 1 ? 'item' : 'items'})
+                </span>
+                <span className="text-xl font-bold text-primary">₹{totalPrice}</span>
+              </div>
+
+              {/* Submit Button */}
+              <Button 
+                type="submit" 
+                size="lg" 
+                className="w-full h-12 text-base font-semibold shadow-md hover:shadow-lg transition-all"
+              >
+                <Send className="mr-2 h-4 w-4" />
+                Book Order Now
+              </Button>
+            </div>
           </form>
         </DialogContent>
       </Dialog>
