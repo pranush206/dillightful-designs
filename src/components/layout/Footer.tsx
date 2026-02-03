@@ -10,7 +10,7 @@ export function Footer() {
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
               <span className="text-2xl">🫙</span>
-              <span className="font-display text-lg font-semibold">7 HILLS NATU RUCHULU</span>
+              <span className="font-display text-lg font-semibold" style={{ fontVariantNumeric: 'lining-nums' }}>7 HILLS NATU RUCHULU</span>
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
               Crafted with love using traditional recipes passed down through generations. 

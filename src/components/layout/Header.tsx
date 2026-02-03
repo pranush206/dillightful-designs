@@ -25,7 +25,7 @@ export function Header() {
           <Link to="/" className="flex items-center gap-2 group">
             <span className="text-2xl">🫙</span>
             <div className="flex flex-col">
-              <span className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+              <span className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors" style={{ fontVariantNumeric: 'lining-nums' }}>
                 7 HILLS NATU RUCHULU
               </span>
               <span className="text-xs text-muted-foreground -mt-1">Homemade with Love</span>
