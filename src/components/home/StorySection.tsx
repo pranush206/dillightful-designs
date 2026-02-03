@@ -38,11 +38,11 @@ export function StorySection() {
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               For over three decades, our family has preserved the art of traditional 
-              pickle making. What started in Maa's kitchen has now become a beloved 
+              pickle making. What started in a humble kitchen has now become a beloved 
               brand, but our commitment to authenticity remains unchanged.
             </p>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              Each jar of Maa's Pickles carries the warmth of home cooking - prepared 
+              Each jar of 7 Hills Natu Ruchulu carries the warmth of home cooking - prepared 
               in small batches using hand-picked ingredients, aromatic spices ground 
               fresh, and the patience of traditional sun-curing methods.
             </p>
