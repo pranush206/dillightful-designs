@@ -5,7 +5,7 @@ import pickleMixedImg from "@/assets/pickle-mixed.jpg";
 import pickleGarlicImg from "@/assets/pickle-garlic.jpg";
 import pickleChickenImg from "@/assets/pickle-chicken.jpg";
 
-export type Category = "all" | "veg" | "non-veg" | "spicy" | "seasonal" | "special";
+export type Category = "all" | "veg" | "non-veg" | "spicy" | "special";
 
 export interface Pickle {
   id: string;
@@ -62,7 +62,7 @@ export const pickles: Pickle[] = [
     price: 229,
     weight: "300g",
     image: pickleMixedImg,
-    category: ["veg", "seasonal"],
+    category: ["veg"],
     spiceLevel: 2,
   },
   {
@@ -93,6 +93,5 @@ export const categories = [
   { id: "veg", name: "Vegetarian", icon: "🥬" },
   { id: "non-veg", name: "Non-Vegetarian", icon: "🍗" },
   { id: "spicy", name: "Extra Spicy", icon: "🌶️" },
-  { id: "seasonal", name: "Seasonal", icon: "🍂" },
   { id: "special", name: "Special Edition", icon: "⭐" },
 ] as const;
