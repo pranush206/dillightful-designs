@@ -32,7 +32,7 @@ export function HeroSection() {
             ingredients, sun-ripened to perfection.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button asChild size="xl" variant="warm">
+            <Button asChild size="xl" className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Link to="/menu">
                 <ShoppingBag className="mr-2 h-5 w-5" />
                 View Menu

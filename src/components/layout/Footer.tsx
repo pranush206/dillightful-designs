@@ -10,7 +10,7 @@ export function Footer() {
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
               <span className="text-2xl">🫙</span>
-              <span className="font-display text-xl font-semibold">Maa's Pickles</span>
+              <span className="font-display text-lg font-semibold">7 HILLS NATU RUCHULU</span>
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
               Crafted with love using traditional recipes passed down through generations. 
@@ -55,7 +55,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm text-primary-foreground/60">
-          <p>© {new Date().getFullYear()} Maa's Pickles. Made with ❤️ in India</p>
+          <p>© {new Date().getFullYear()} 7 HILLS NATU RUCHULU. Made with ❤️ in India</p>
         </div>
       </div>
     </footer>

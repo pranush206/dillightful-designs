@@ -18,7 +18,7 @@ const NotFound = () => {
           Oops! Page Not Found
         </h1>
         <p className="text-muted-foreground max-w-md mx-auto mb-8">
-          Looks like this pickle jar is empty! The page you're looking for doesn't exist.
+          Looks like this jar is empty! The page you're looking for doesn't exist.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Button asChild size="lg">
