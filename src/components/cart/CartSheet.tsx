@@ -16,6 +16,7 @@ import { useCart } from "@/store/cart";
 import { Separator } from "@/components/ui/separator";
 import { buildWhatsAppSendUrl } from "@/lib/whatsapp";
 import { toast } from "@/components/ui/use-toast";
+import logoImage from "@/assets/logo.png";
 
 const WHATSAPP_NUMBER = "919059582419";
 
@@ -106,7 +107,7 @@ Please confirm this order. Thank you! 🙏`
 
           {items.length === 0 ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-4 text-center">
-              <div className="text-6xl">🫙</div>
+              <img src={logoImage} alt="Empty cart" className="h-16 w-16 rounded-full object-cover" />
               <p className="text-muted-foreground">Your cart is empty</p>
               <Button onClick={closeCart} variant="outline">
                 Continue Shopping

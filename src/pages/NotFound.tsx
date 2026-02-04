@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Home, ArrowLeft } from "lucide-react";
+import logoImage from "@/assets/logo.png";
 
 const NotFound = () => {
   const location = useLocation();
@@ -13,7 +14,7 @@ const NotFound = () => {
   return (
     <main className="min-h-[60vh] flex items-center justify-center py-20">
       <div className="container-custom text-center">
-        <div className="text-8xl mb-6">🫙</div>
+        <img src={logoImage} alt="7 Hills Natu Ruchulu" className="h-24 w-24 rounded-full object-cover mx-auto mb-6" />
         <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
           Oops! Page Not Found
         </h1>
