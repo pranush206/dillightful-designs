@@ -5,9 +5,9 @@ import heroImage from "@/assets/hero-pickles.jpg";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[70vh] md:min-h-[85vh] flex items-center overflow-hidden isolate">
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 -z-10">
         <img
           src={heroImage}
           alt="Traditional homemade pickles"
@@ -24,7 +24,7 @@ export function HeroSection() {
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
             Taste the Tradition of{" "}
-            <span className="text-accent">Homemade Pickles</span>
+            <span className="text-accent">7 Hills Pickles</span>
           </h1>
           <p className="text-lg text-primary-foreground/80 mb-8 leading-relaxed">
             Experience authentic flavors passed down through generations. 
