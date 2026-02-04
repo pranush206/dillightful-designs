@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
+import logoImage from "@/assets/logo.png";
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <span className="text-2xl">🫙</span>
+              <img src={logoImage} alt="7 Hills Natu Ruchulu" className="h-10 w-10 rounded-full object-cover" />
               <span className="font-display text-lg font-semibold" style={{ fontVariantNumeric: 'lining-nums' }}>7 HILLS NATU RUCHULU</span>
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">

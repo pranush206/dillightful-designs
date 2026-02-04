@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import heroImage from "@/assets/hero-pickles.jpg";
+import logoImage from "@/assets/logo.png";
 
 export function HeroSection() {
   return (
@@ -19,8 +20,9 @@ export function HeroSection() {
       {/* Content */}
       <div className="container-custom relative z-10 py-20">
         <div className="max-w-2xl animate-fade-up">
-          <span className="inline-block text-accent font-medium text-sm tracking-wider uppercase mb-4">
-            🫙 Handcrafted with Love
+          <span className="inline-flex items-center gap-2 text-accent font-medium text-sm tracking-wider uppercase mb-4">
+            <img src={logoImage} alt="" className="h-6 w-6 rounded-full object-cover" />
+            Handcrafted with Love
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
             Taste the Tradition of
