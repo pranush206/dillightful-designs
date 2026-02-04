@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/store/cart";
 import { cn } from "@/lib/utils";
+import logoImage from "@/assets/logo.png";
 
 const navLinks = [
   { path: "/", label: "Home" },
@@ -23,7 +24,11 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <span className="text-2xl">🫙</span>
+            <img 
+              src={logoImage} 
+              alt="7 Hills Natu Ruchulu" 
+              className="h-10 w-10 rounded-full object-cover"
+            />
             <div className="flex flex-col">
               <span className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors" style={{ fontVariantNumeric: 'lining-nums' }}>
                 7 HILLS NATU RUCHULU
