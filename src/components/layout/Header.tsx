@@ -27,7 +27,7 @@ export function Header() {
             <img 
               src={logoImage} 
               alt="7 Hills Natu Ruchulu" 
-              className="h-10 w-10 rounded-full object-cover"
+              className="h-12 w-12 rounded-full object-cover"
             />
             <div className="flex flex-col">
               <span className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors" style={{ fontVariantNumeric: 'lining-nums' }}>
