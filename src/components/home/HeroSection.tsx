@@ -23,7 +23,8 @@ export function HeroSection() {
             🫙 Handcrafted with Love
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
-            Taste the Tradition of{" "}
+            Taste the Tradition of
+            <br />
             <span className="text-accent">7 Hills Pickles</span>
           </h1>
           <p className="text-lg text-primary-foreground/80 mb-8 leading-relaxed">
