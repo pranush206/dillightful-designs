@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Minus, Plus, ShoppingBag, Trash2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -13,7 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/store/cart";
+import { useAuth } from "@/hooks/useAuth";
 import { Separator } from "@/components/ui/separator";
+import { supabase } from "@/integrations/supabase/client";
 import { buildWhatsAppSendUrl } from "@/lib/whatsapp";
 import { toast } from "@/components/ui/use-toast";
 import logoImage from "@/assets/logo.png";
@@ -22,6 +24,7 @@ const WHATSAPP_NUMBER = "919059582419";
 
 export function CartSheet() {
   const { items, isOpen, closeCart, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart();
+  const { user } = useAuth();
   const totalPrice = getTotalPrice();
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,6 +32,31 @@ export function CartSheet() {
     phone: "",
     address: "",
   });
+
+  // Load user profile data when available
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("display_name, phone, address")
+          .eq("user_id", user.id)
+          .single();
+
+        if (data) {
+          setFormData({
+            name: data.display_name || "",
+            phone: data.phone || "",
+            address: data.address || "",
+          });
+        }
+      }
+    };
+
+    if (showAddressForm && user) {
+      loadProfile();
+    }
+  }, [showAddressForm, user]);
 
   const itemsListForMessage = items
     .map((item) => `• ${item.pickle.name} (${item.pickle.weight}) × ${item.quantity} = ₹${item.pickle.price * item.quantity}`)
@@ -58,36 +86,61 @@ Please confirm this order. Thank you! 🙏`
     setShowAddressForm(true);
   };
 
-  const handleSendWhatsApp = (e: React.FormEvent) => {
+  const handleSendWhatsApp = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Many networks/browsers block WhatsApp domains (ERR_BLOCKED_BY_RESPONSE).
-    // So we ALWAYS copy the message to clipboard as a reliable fallback.
-    (async () => {
-      try {
-        await navigator.clipboard.writeText(orderMessage);
+    // Save order to database
+    if (user) {
+      const orderItems = items.map(item => ({
+        name: item.pickle.name,
+        weight: item.pickle.weight,
+        price: item.pickle.price,
+        quantity: item.quantity,
+        image: item.pickle.image,
+      }));
+
+      const { error } = await supabase.from("orders").insert({
+        user_id: user.id,
+        items: orderItems,
+        total_amount: totalPrice,
+        customer_name: formData.name,
+        customer_phone: formData.phone,
+        delivery_address: formData.address,
+        status: "pending",
+      });
+
+      if (error) {
+        console.error("Error saving order:", error);
         toast({
-          title: "Order message copied",
-          description: "If WhatsApp is blocked, open WhatsApp and paste the message to send it.",
-        });
-      } catch {
-        toast({
-          title: "Copy failed",
-          description: "Please manually select and copy the message shown in the dialog.",
+          title: "Order save failed",
+          description: "We couldn't save your order, but you can still proceed via WhatsApp.",
           variant: "destructive",
         });
       }
-    })();
+    }
+
+    // Copy message to clipboard as fallback
+    try {
+      await navigator.clipboard.writeText(orderMessage);
+      toast({
+        title: "Order message copied",
+        description: "If WhatsApp is blocked, open WhatsApp and paste the message to send it.",
+      });
+    } catch {
+      toast({
+        title: "Copy failed",
+        description: "Please manually select and copy the message shown in the dialog.",
+        variant: "destructive",
+      });
+    }
 
     const whatsappUrl = buildWhatsAppSendUrl({
       phoneE164Digits: WHATSAPP_NUMBER,
       message: orderMessage,
     });
 
-    // Try opening WhatsApp; if blocked, user can still paste the copied message.
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
-    // Reset form and clear cart
     setFormData({ name: "", phone: "", address: "" });
     setShowAddressForm(false);
     clearCart();
