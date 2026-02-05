@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { Pickle } from "@/data/pickles";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Flame } from "lucide-react";
 import { useCart } from "@/store/cart";
+import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -12,11 +14,19 @@ interface PickleCardProps {
 }
 
 export function PickleCard({ pickle, onClick }: PickleCardProps) {
+  const navigate = useNavigate();
   const { addItem } = useCart();
+  const { user } = useAuth();
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
+    
+    if (!user) {
+      navigate("/auth", { state: { from: window.location.pathname } });
+      return;
+    }
+    
     setIsAdding(true);
     addItem(pickle);
     setTimeout(() => setIsAdding(false), 500);
