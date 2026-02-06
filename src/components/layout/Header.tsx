@@ -1,10 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, Menu, X, LogIn, UserPlus } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/store/cart";
-import { useAuth } from "@/hooks/useAuth";
-import { ProfileDropdown } from "@/components/layout/ProfileDropdown";
 import { cn } from "@/lib/utils";
 import logoImage from "@/assets/logo.png";
 
@@ -18,7 +16,6 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const { getTotalItems, openCart } = useCart();
-  const { user, loading } = useAuth();
   const totalItems = getTotalItems();
 
   return (
@@ -63,43 +60,19 @@ export function Header() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            {!loading && (
-              <>
-                {user ? (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="relative"
-                      onClick={openCart}
-                    >
-                      <ShoppingCart className="h-5 w-5" />
-                      {totalItems > 0 && (
-                        <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium animate-scale-in">
-                          {totalItems}
-                        </span>
-                      )}
-                    </Button>
-                    <ProfileDropdown />
-                  </>
-                ) : (
-                  <div className="hidden sm:flex items-center gap-2">
-                    <Button variant="ghost" size="sm" asChild>
-                      <Link to="/auth" state={{ tab: "signin" }}>
-                        <LogIn className="h-4 w-4 mr-1" />
-                        Sign In
-                      </Link>
-                    </Button>
-                    <Button size="sm" asChild>
-                      <Link to="/auth" state={{ tab: "signup" }}>
-                        <UserPlus className="h-4 w-4 mr-1" />
-                        Sign Up
-                      </Link>
-                    </Button>
-                  </div>
-                )}
-              </>
-            )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              onClick={openCart}
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium animate-scale-in">
+                  {totalItems}
+                </span>
+              )}
+            </Button>
 
             {/* Mobile Menu Button */}
             <Button
@@ -131,22 +104,6 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            {!loading && !user && (
-              <div className="flex flex-col gap-2 pt-4 border-t border-border mt-4">
-                <Button variant="outline" asChild className="justify-start">
-                  <Link to="/auth" state={{ tab: "signin" }} onClick={() => setIsMenuOpen(false)}>
-                    <LogIn className="h-4 w-4 mr-2" />
-                    Sign In
-                  </Link>
-                </Button>
-                <Button asChild className="justify-start">
-                  <Link to="/auth" state={{ tab: "signup" }} onClick={() => setIsMenuOpen(false)}>
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Sign Up
-                  </Link>
-                </Button>
-              </div>
-            )}
           </nav>
         )}
       </div>

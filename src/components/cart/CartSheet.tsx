@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Minus, Plus, ShoppingBag, Trash2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -13,9 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/store/cart";
-import { useAuth } from "@/hooks/useAuth";
 import { Separator } from "@/components/ui/separator";
-import { supabase } from "@/integrations/supabase/client";
 import { buildWhatsAppSendUrl } from "@/lib/whatsapp";
 import { toast } from "@/components/ui/use-toast";
 import logoImage from "@/assets/logo.png";
@@ -24,7 +22,6 @@ const WHATSAPP_NUMBER = "919059582419";
 
 export function CartSheet() {
   const { items, isOpen, closeCart, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart();
-  const { user } = useAuth();
   const totalPrice = getTotalPrice();
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -32,31 +29,6 @@ export function CartSheet() {
     phone: "",
     address: "",
   });
-
-  // Load user profile data when available
-  useEffect(() => {
-    const loadProfile = async () => {
-      if (user) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("display_name, phone, address")
-          .eq("user_id", user.id)
-          .single();
-
-        if (data) {
-          setFormData({
-            name: data.display_name || "",
-            phone: data.phone || "",
-            address: data.address || "",
-          });
-        }
-      }
-    };
-
-    if (showAddressForm && user) {
-      loadProfile();
-    }
-  }, [showAddressForm, user]);
 
   const itemsListForMessage = items
     .map((item) => `• ${item.pickle.name} (${item.pickle.weight}) × ${item.quantity} = ₹${item.pickle.price * item.quantity}`)
@@ -88,36 +60,6 @@ Please confirm this order. Thank you! 🙏`
 
   const handleSendWhatsApp = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Save order to database
-    if (user) {
-      const orderItems = items.map(item => ({
-        name: item.pickle.name,
-        weight: item.pickle.weight,
-        price: item.pickle.price,
-        quantity: item.quantity,
-        image: item.pickle.image,
-      }));
-
-      const { error } = await supabase.from("orders").insert({
-        user_id: user.id,
-        items: orderItems,
-        total_amount: totalPrice,
-        customer_name: formData.name,
-        customer_phone: formData.phone,
-        delivery_address: formData.address,
-        status: "pending",
-      });
-
-      if (error) {
-        console.error("Error saving order:", error);
-        toast({
-          title: "Order save failed",
-          description: "We couldn't save your order, but you can still proceed via WhatsApp.",
-          variant: "destructive",
-        });
-      }
-    }
 
     // Copy message to clipboard as fallback
     try {
@@ -241,7 +183,6 @@ Please confirm this order. Thank you! 🙏`
       {/* Address Form Dialog */}
       <Dialog open={showAddressForm} onOpenChange={setShowAddressForm}>
         <DialogContent className="sm:max-w-md max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden bg-gradient-to-b from-background to-muted/30">
-          {/* Header with gradient accent */}
           <div className="bg-primary/5 border-b px-6 py-5">
             <DialogHeader className="space-y-1">
               <DialogTitle className="font-display text-xl text-foreground">
@@ -255,7 +196,6 @@ Please confirm this order. Thank you! 🙏`
           
           <form onSubmit={handleSendWhatsApp} className="flex flex-col flex-1 overflow-y-auto">
             <div className="px-6 py-5 space-y-5">
-              {/* Full Name Field */}
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-sm font-medium flex items-center gap-1">
                   Full Name <span className="text-destructive">*</span>
@@ -271,7 +211,6 @@ Please confirm this order. Thank you! 🙏`
                 />
               </div>
               
-              {/* Phone Number Field */}
               <div className="space-y-2">
                 <Label htmlFor="phone" className="text-sm font-medium flex items-center gap-1">
                   Phone Number <span className="text-destructive">*</span>
@@ -288,7 +227,6 @@ Please confirm this order. Thank you! 🙏`
                 />
               </div>
               
-              {/* Address Field */}
               <div className="space-y-2">
                 <Label htmlFor="address" className="text-sm font-medium flex items-center gap-1">
                   Delivery Address <span className="text-destructive">*</span>
@@ -306,9 +244,7 @@ Please confirm this order. Thank you! 🙏`
               </div>
             </div>
 
-            {/* Footer with Order Summary & Button */}
             <div className="mt-auto border-t bg-muted/40 px-6 py-4 space-y-4">
-              {/* Order Summary */}
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">
                   Total ({items.length} {items.length === 1 ? 'item' : 'items'})
@@ -316,7 +252,6 @@ Please confirm this order. Thank you! 🙏`
                 <span className="text-xl font-bold text-primary">₹{totalPrice}</span>
               </div>
 
-              {/* Submit Button */}
               <Button 
                 type="submit" 
                 size="lg" 
